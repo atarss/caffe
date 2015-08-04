@@ -429,50 +429,50 @@ $(LINT_OUTPUTS): $(LINT_OUTPUT_DIR)/%.lint.txt : % $(LINT_SCRIPT) | $(LINT_OUTPU
 		> $@ \
 		|| true
 
-test: $(TEST_ALL_BIN) $(TEST_ALL_DYNLINK_BIN) $(TEST_BINS)
+# test: $(TEST_ALL_BIN) $(TEST_ALL_DYNLINK_BIN) $(TEST_BINS)
 
-tools: $(TOOL_BINS) $(TOOL_BIN_LINKS)
+# tools: $(TOOL_BINS) $(TOOL_BIN_LINKS)
 
-examples: $(EXAMPLE_BINS)
+# examples: $(EXAMPLE_BINS)
 
-py$(PROJECT): py
+# py$(PROJECT): py
 
-py: $(PY$(PROJECT)_SO) $(PROTO_GEN_PY)
+#py: $(PY$(PROJECT)_SO) $(PROTO_GEN_PY)
 
-$(PY$(PROJECT)_SO): $(PY$(PROJECT)_SRC) $(PY$(PROJECT)_HXX) | $(DYNAMIC_NAME)
-	@ echo CXX/LD -o $@ $<
-	$(Q)$(CXX) -shared -o $@ $(PY$(PROJECT)_SRC) \
-		-o $@ $(LINKFLAGS) -l$(PROJECT) $(PYTHON_LDFLAGS) \
-		-Wl,-rpath,$(ORIGIN)/../../build/lib
+#$(PY$(PROJECT)_SO): $(PY$(PROJECT)_SRC) $(PY$(PROJECT)_HXX) | $(DYNAMIC_NAME)
+#	@ echo CXX/LD -o $@ $<
+#	$(Q)$(CXX) -shared -o $@ $(PY$(PROJECT)_SRC) \
+#		-o $@ $(LINKFLAGS) -l$(PROJECT) $(PYTHON_LDFLAGS) \
+#		-Wl,-rpath,$(ORIGIN)/../../build/lib
 
-mat$(PROJECT): mat
+#mat$(PROJECT): mat
 
-mat: $(MAT$(PROJECT)_SO)
+#mat: $(MAT$(PROJECT)_SO)
 
-$(MAT$(PROJECT)_SO): $(MAT$(PROJECT)_SRC) $(STATIC_NAME)
-	@ if [ -z "$(MATLAB_DIR)" ]; then \
-		echo "MATLAB_DIR must be specified in $(CONFIG_FILE)" \
-			"to build mat$(PROJECT)."; \
-		exit 1; \
-	fi
-	@ echo MEX $<
-	$(Q)$(MATLAB_DIR)/bin/mex $(MAT$(PROJECT)_SRC) \
-			CXX="$(CXX)" \
-			CXXFLAGS="\$$CXXFLAGS $(MATLAB_CXXFLAGS)" \
-			CXXLIBS="\$$CXXLIBS $(STATIC_LINK_COMMAND) $(LDFLAGS)" -output $@
-	@ if [ -f "$(PROJECT)_.d" ]; then \
-		mv -f $(PROJECT)_.d $(BUILD_DIR)/${MAT$(PROJECT)_SO:.$(MAT_SO_EXT)=.d}; \
-	fi
+#$(MAT$(PROJECT)_SO): $(MAT$(PROJECT)_SRC) $(STATIC_NAME)
+#	@ if [ -z "$(MATLAB_DIR)" ]; then \
+#		echo "MATLAB_DIR must be specified in $(CONFIG_FILE)" \
+#			"to build mat$(PROJECT)."; \
+#		exit 1; \
+#	fi
+#	@ echo MEX $<
+#	$(Q)$(MATLAB_DIR)/bin/mex $(MAT$(PROJECT)_SRC) \
+#			CXX="$(CXX)" \
+#			CXXFLAGS="\$$CXXFLAGS $(MATLAB_CXXFLAGS)" \
+#			CXXLIBS="\$$CXXLIBS $(STATIC_LINK_COMMAND) $(LDFLAGS)" -output $@
+#	@ if [ -f "$(PROJECT)_.d" ]; then \
+#		mv -f $(PROJECT)_.d $(BUILD_DIR)/${MAT$(PROJECT)_SO:.$(MAT_SO_EXT)=.d}; \
+#	fi
 
-runtest: $(TEST_ALL_BIN)
-	$(TOOL_BUILD_DIR)/caffe
-	$(TEST_ALL_BIN) $(TEST_GPUID) --gtest_shuffle $(TEST_FILTER)
+# runtest: $(TEST_ALL_BIN)
+#	$(TOOL_BUILD_DIR)/caffe
+#	$(TEST_ALL_BIN) $(TEST_GPUID) --gtest_shuffle $(TEST_FILTER)
 
-pytest: py
-	cd python; python -m unittest discover -s caffe/test
+# pytest: py
+#	cd python; python -m unittest discover -s caffe/test
 	
-mattest: mat
-	cd matlab; $(MATLAB_DIR)/bin/matlab -nodisplay -r 'caffe.run_tests(), exit()'
+# mattest: mat
+#	cd matlab; $(MATLAB_DIR)/bin/matlab -nodisplay -r 'caffe.run_tests(), exit()'
 
 warn: $(EMPTY_WARN_REPORT)
 
