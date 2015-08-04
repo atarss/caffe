@@ -169,8 +169,8 @@ ifneq ($(CPU_ONLY), 1)
 	LIBRARY_DIRS += $(CUDA_LIB_DIR)
 	LIBRARIES := cudart cublas curand
 endif
-LIBRARIES += glog gflags protobuf leveldb snappy \
-	lmdb boost_system hdf5_hl hdf5 m \
+LIBRARIES += glog protobuf \
+	boost_system m \
 	opencv_core opencv_highgui opencv_imgproc
 PYTHON_LIBRARIES := boost_python python2.7
 WARNINGS := -Wall -Wno-sign-compare
@@ -390,7 +390,7 @@ endif
 	py mat py$(PROJECT) mat$(PROJECT) proto runtest \
 	superclean supercleanlist supercleanfiles warn everything
 
-all: $(STATIC_NAME) $(DYNAMIC_NAME) tools examples
+all: $(STATIC_NAME) $(DYNAMIC_NAME) # tools examples
 
 everything: $(EVERYTHING_TARGETS)
 

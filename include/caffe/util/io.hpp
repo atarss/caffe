@@ -5,8 +5,8 @@
 #include <string>
 
 #include "google/protobuf/message.h"
-#include "hdf5.h"
-#include "hdf5_hl.h"
+// #include "hdf5.h"
+// #include "hdf5_hl.h"
 
 #include "caffe/blob.hpp"
 #include "caffe/common.hpp"
@@ -140,6 +140,7 @@ cv::Mat DecodeDatumToCVMat(const Datum& datum, bool is_color);
 
 void CVMatToDatum(const cv::Mat& cv_img, Datum* datum);
 
+/*
 template <typename Dtype>
 void hdf5_load_nd_dataset_helper(
     hid_t file_id, const char* dataset_name_, int min_dim, int max_dim,
@@ -153,6 +154,7 @@ void hdf5_load_nd_dataset(
 template <typename Dtype>
 void hdf5_save_nd_dataset(
     const hid_t file_id, const string& dataset_name, const Blob<Dtype>& blob);
+*/
 
 }  // namespace caffe
 

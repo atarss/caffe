@@ -2,7 +2,7 @@
 #define CAFFE_COMMON_HPP_
 
 #include <boost/shared_ptr.hpp>
-#include <gflags/gflags.h>
+// #include <gflags/gflags.h>
 #include <glog/logging.h>
 
 #include <climits>
@@ -91,7 +91,7 @@ using std::vector;
 
 // A global initialization function that you should call in your main function.
 // Currently it initializes google flags and google logging.
-void GlobalInit(int* pargc, char*** pargv);
+// void GlobalInit(int* pargc, char*** pargv);
 
 // A singleton class to hold common caffe stuff, such as the handler that
 // caffe is going to use for cublas, curand, etc.
