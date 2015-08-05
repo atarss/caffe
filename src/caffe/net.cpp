@@ -721,6 +721,10 @@ void Net<Dtype>::Reshape() {
 template <typename Dtype>
 void Net<Dtype>::CopyTrainedLayersFrom(const NetParameter& param) {
   int num_source_layers = param.layer_size();
+  
+  // printf("%d layers to be copied.\n", num_source_layers);
+  // DLOG(INFO) << " " << num_source_layers << " layer(s) to be copied";
+
   for (int i = 0; i < num_source_layers; ++i) {
     const LayerParameter& source_layer = param.layer(i);
     const string& source_layer_name = source_layer.name();

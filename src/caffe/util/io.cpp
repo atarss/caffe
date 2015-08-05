@@ -48,18 +48,34 @@ void WriteProtoToTextFile(const Message& proto, const char* filename) {
 }
 
 bool ReadProtoFromBinaryFile(const char* filename, Message* proto) {
-  int fd = open(filename, O_RDONLY);
-  CHECK_NE(fd, -1) << "File not found: " << filename;
-  ZeroCopyInputStream* raw_input = new FileInputStream(fd);
-  CodedInputStream* coded_input = new CodedInputStream(raw_input);
-  coded_input->SetTotalBytesLimit(kProtoReadBytesLimit, 536870912);
+  // int fd = open(filename, O_RDONLY);
+  // CHECK_NE(fd, -1) << "File not found: " << filename;
+  // ZeroCopyInputStream* raw_input = new FileInputStream(fd);
+    std::ifstream t(filename, std::ios::binary);
+    int state = 1;
+    if (!t.is_open()) state = 0;
+    CHECK_NE(state, 0) << "File not found: " << filename;
 
-  bool success = proto->ParseFromCodedStream(coded_input);
+    google::protobuf::io::IstreamInputStream* ist = new google::protobuf::io::IstreamInputStream(&t);
+    CodedInputStream* coded_input = new CodedInputStream(ist);
+    coded_input->SetTotalBytesLimit(INT_MAX, -1);
 
-  delete coded_input;
-  delete raw_input;
-  close(fd);
-  return success;
+    bool success = proto->ParseFromCodedStream(coded_input);
+
+    delete coded_input;
+    delete ist;
+    t.close(); 
+/*
+    std::ifstream t(filename, std::ios::binary);
+    int state = 1;
+    if (!t.is_open()) state = 0;
+    CHECK_NE(state, 0) << "File not found" << filename;
+    std::stringstream buf;
+    buf << t.rdbuf();
+    std::string str_content(buf.str());
+*/
+
+    return success;
 }
 
 void WriteProtoToBinaryFile(const Message& proto, const char* filename) {

@@ -64,10 +64,6 @@ PROTO_BUILD_INCLUDE_DIR := $(BUILD_INCLUDE_DIR)/$(PROJECT)/proto
 NONGEN_CXX_SRCS := $(shell find \
 	src/$(PROJECT) \
 	include/$(PROJECT) \
-	python/$(PROJECT) \
-	matlab/+$(PROJECT)/private \
-	examples \
-	tools \
 	-name "*.cpp" -or -name "*.hpp" -or -name "*.cu" -or -name "*.cuh")
 LINT_SCRIPT := scripts/cpp_lint.py
 LINT_OUTPUT_DIR := $(BUILD_DIR)/.lint
