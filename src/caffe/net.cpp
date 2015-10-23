@@ -124,7 +124,7 @@ void Net<Dtype>::Init(const NetParameter& in_param) {
         blob_loss_weights_.resize(top_id_vecs_[layer_id][top_id] + 1, Dtype(0));
       }
       blob_loss_weights_[top_id_vecs_[layer_id][top_id]] = layer->loss(top_id);
-      LOG(INFO) << "Top shape: " << top_vecs_[layer_id][top_id]->shape_string();
+      // LOG(INFO) << "Top shape: " << top_vecs_[layer_id][top_id]->shape_string();
       if (layer->loss(top_id)) {
         LOG(INFO) << "    with loss weight " << layer->loss(top_id);
       }
@@ -189,10 +189,10 @@ void Net<Dtype>::Init(const NetParameter& in_param) {
     }
     if (!layer_contributes_loss) { layer_need_backward_[layer_id] = false; }
     if (layer_need_backward_[layer_id]) {
-      LOG(INFO) << layer_names_[layer_id] << " needs backward computation.";
+      // LOG(INFO) << layer_names_[layer_id] << " needs backward computation.";
     } else {
-      LOG(INFO) << layer_names_[layer_id]
-                << " does not need backward computation.";
+      // LOG(INFO) << layer_names_[layer_id]
+      //           << " does not need backward computation.";
     }
     for (int bottom_id = 0; bottom_id < bottom_vecs_[layer_id].size();
          ++bottom_id) {
@@ -232,7 +232,7 @@ void Net<Dtype>::Init(const NetParameter& in_param) {
   // In the end, all remaining blobs are considered output blobs.
   for (set<string>::iterator it = available_blobs.begin();
       it != available_blobs.end(); ++it) {
-    LOG(INFO) << "This network produces output " << *it;
+    // LOG(INFO) << "This network produces output " << *it;
     net_output_blobs_.push_back(blobs_[blob_name_to_idx[*it]].get());
     net_output_blob_indices_.push_back(blob_name_to_idx[*it]);
   }
@@ -244,8 +244,8 @@ void Net<Dtype>::Init(const NetParameter& in_param) {
   }
   GetLearningRateAndWeightDecay();
   debug_info_ = param.debug_info();
-  LOG(INFO) << "Network initialization done.";
-  LOG(INFO) << "Memory required for data: " << memory_used_ * sizeof(Dtype);
+  // LOG(INFO) << "Network initialization done.";
+  // LOG(INFO) << "Memory required for data: " << memory_used_ * sizeof(Dtype);
 }
 
 template <typename Dtype>
@@ -354,7 +354,7 @@ void Net<Dtype>::AppendTop(const NetParameter& param, const int layer_id,
   if (blob_name_to_idx && layer_param && layer_param->bottom_size() > top_id &&
       blob_name == layer_param->bottom(top_id)) {
     // In-place computation
-    LOG(INFO) << layer_param->name() << " -> " << blob_name << " (in-place)";
+    // LOG(INFO) << layer_param->name() << " -> " << blob_name << " (in-place)";
     top_vecs_[layer_id].push_back(blobs_[(*blob_name_to_idx)[blob_name]].get());
     top_id_vecs_[layer_id].push_back((*blob_name_to_idx)[blob_name]);
   } else if (blob_name_to_idx &&
@@ -479,7 +479,7 @@ void Net<Dtype>::AppendParam(const NetParameter& param, const int layer_id,
 
 template <typename Dtype>
 void Net<Dtype>::GetLearningRateAndWeightDecay() {
-  LOG(INFO) << "Collecting Learning Rate and Weight Decay.";
+  // LOG(INFO) << "Collecting Learning Rate and Weight Decay.";
   ParamSpec default_param_spec;
   for (int i = 0; i < layers_.size(); ++i) {
     vector<shared_ptr<Blob<Dtype> > >& layer_blobs = layers_[i]->blobs();
