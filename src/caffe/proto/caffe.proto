@@ -325,7 +325,7 @@ message LayerParameter {
   optional DropoutParameter dropout_param = 108;
 
   // add by hukun
-  optional DropoutAlexParameter dropoutalex_param = 134;
+  optional DropoutAlexParameter dropoutalex_param = 140;
 
   optional DummyDataParameter dummy_data_param = 109;
   optional EltwiseParameter eltwise_param = 110;
@@ -942,6 +942,7 @@ message V1LayerParameter {
 
     // added by Hukun
     DROPOUTALEX = 40;
+    PRELU = 41;
 
     DUMMY_DATA = 32;
     EUCLIDEAN_LOSS = 7;
@@ -994,6 +995,7 @@ message V1LayerParameter {
 
   // added by Hukun
   optional DropoutAlexParameter dropoutalex_param = 43;
+  optional PReLUParameter prelu_param = 30;
 
   optional DummyDataParameter dummy_data_param = 26;
   optional EltwiseParameter eltwise_param = 24;
