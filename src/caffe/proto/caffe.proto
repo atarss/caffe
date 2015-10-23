@@ -323,6 +323,10 @@ message LayerParameter {
   optional ConvolutionParameter convolution_param = 106;
   optional DataParameter data_param = 107;
   optional DropoutParameter dropout_param = 108;
+
+  // add by hukun
+  optional DropoutAlexParameter dropoutalex_param = 134;
+
   optional DummyDataParameter dummy_data_param = 109;
   optional EltwiseParameter eltwise_param = 110;
   optional ExpParameter exp_param = 111;
@@ -491,6 +495,11 @@ message DataParameter {
 
 message DropoutParameter {
   optional float dropout_ratio = 1 [default = 0.5]; // dropout ratio
+}
+
+// added by Hukun
+message DropoutAlexParameter {
+  optional float dropoutalex_ratio = 1 [default = 0.5]; 
 }
 
 // DummyDataLayer fills any number of arbitrarily shaped blobs with random
@@ -930,6 +939,10 @@ message V1LayerParameter {
     DATA = 5;
     DECONVOLUTION = 39;
     DROPOUT = 6;
+
+    // added by Hukun
+    DROPOUTALEX = 40;
+
     DUMMY_DATA = 32;
     EUCLIDEAN_LOSS = 7;
     ELTWISE = 25;
@@ -978,6 +991,10 @@ message V1LayerParameter {
   optional ConvolutionParameter convolution_param = 10;
   optional DataParameter data_param = 11;
   optional DropoutParameter dropout_param = 12;
+
+  // added by Hukun
+  optional DropoutAlexParameter dropoutalex_param = 43;
+
   optional DummyDataParameter dummy_data_param = 26;
   optional EltwiseParameter eltwise_param = 24;
   optional ExpParameter exp_param = 41;

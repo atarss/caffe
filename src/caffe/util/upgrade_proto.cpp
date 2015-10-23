@@ -736,6 +736,13 @@ bool UpgradeV1LayerParameter(const V1LayerParameter& v1_layer_param,
     layer_param->mutable_dropout_param()->CopyFrom(
         v1_layer_param.dropout_param());
   }
+
+  // added by Hukun
+  if (v1_layer_param.has_dropoutalex_param()) {
+    layer_param->mutable_dropoutalex_param()->CopyFrom(
+        v1_layer_param.dropoutalex_param());
+  }
+
   if (v1_layer_param.has_dummy_data_param()) {
     layer_param->mutable_dummy_data_param()->CopyFrom(
         v1_layer_param.dummy_data_param());
@@ -859,6 +866,11 @@ const char* UpgradeV1LayerType(const V1LayerParameter_LayerType type) {
     return "Data";
   case V1LayerParameter_LayerType_DROPOUT:
     return "Dropout";
+
+  // added by Hukun
+  case V1LayerParameter_LayerType_DROPOUTALEX:
+    return "DropoutAlex";
+
   case V1LayerParameter_LayerType_DUMMY_DATA:
     return "DummyData";
   case V1LayerParameter_LayerType_EUCLIDEAN_LOSS:
