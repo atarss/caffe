@@ -39,8 +39,8 @@ void Net<Dtype>::Init(const NetParameter& in_param) {
   // the current NetState.
   NetParameter filtered_param;
   FilterNet(in_param, &filtered_param);
-  LOG(INFO) << "Initializing net from parameters: " << std::endl
-            << filtered_param.DebugString();
+  // LOG(INFO) << "Initializing net from parameters: " << std::endl
+  //           << filtered_param.DebugString();
   // Create a copy of filtered_param with splits added where necessary.
   NetParameter param;
   InsertSplits(filtered_param, &param);
@@ -87,7 +87,7 @@ void Net<Dtype>::Init(const NetParameter& in_param) {
     }
     layers_.push_back(LayerRegistry<Dtype>::CreateLayer(layer_param));
     layer_names_.push_back(layer_param.name());
-    LOG(INFO) << "Creating Layer " << layer_param.name();
+    // LOG(INFO) << "Creating Layer " << layer_param.name();
     bool need_backward = false;
 
     // Figure out this layer's input and output
@@ -117,7 +117,7 @@ void Net<Dtype>::Init(const NetParameter& in_param) {
       }
     }
     // After this layer is connected, set it up.
-    LOG(INFO) << "Setting up " << layer_names_[layer_id];
+    // LOG(INFO) << "Setting up " << layer_names_[layer_id];
     layers_[layer_id]->SetUp(bottom_vecs_[layer_id], top_vecs_[layer_id]);
     for (int top_id = 0; top_id < top_vecs_[layer_id].size(); ++top_id) {
       if (blob_loss_weights_.size() <= top_id_vecs_[layer_id][top_id]) {
@@ -365,9 +365,9 @@ void Net<Dtype>::AppendTop(const NetParameter& param, const int layer_id,
   } else {
     // Normal output.
     if (layer_param) {
-      LOG(INFO) << layer_param->name() << " -> " << blob_name;
+      // LOG(INFO) << layer_param->name() << " -> " << blob_name;
     } else {
-      LOG(INFO) << "Input " << top_id << " -> " << blob_name;
+      // LOG(INFO) << "Input " << top_id << " -> " << blob_name;
     }
     shared_ptr<Blob<Dtype> > blob_pointer(new Blob<Dtype>());
     const int blob_id = blobs_.size();
@@ -407,7 +407,7 @@ int Net<Dtype>::AppendBottom(const NetParameter& param, const int layer_id,
                << " (at index " << bottom_id << ") to layer " << layer_id;
   }
   const int blob_id = (*blob_name_to_idx)[blob_name];
-  LOG(INFO) << layer_names_[layer_id] << " <- " << blob_name;
+  // LOG(INFO) << layer_names_[layer_id] << " <- " << blob_name;
   bottom_vecs_[layer_id].push_back(blobs_[blob_id].get());
   bottom_id_vecs_[layer_id].push_back(blob_id);
   available_blobs->erase(blob_name);

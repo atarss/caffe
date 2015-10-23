@@ -615,16 +615,16 @@ bool UpgradeNetAsNeeded(const string& param_file, NetParameter* param) {
                << "transform_param messages for transformation fields.";
   }
   if (NetNeedsV1ToV2Upgrade(*param)) {
-    LOG(ERROR) << "Attempting to upgrade input file specified using deprecated "
-               << "V1LayerParameter: " << param_file;
+    // LOG(ERROR) << "Attempting to upgrade input file specified using deprecated "
+    //            << "V1LayerParameter: " << param_file;
     NetParameter original_param(*param);
     if (!UpgradeV1Net(original_param, param)) {
       success = false;
       LOG(ERROR) << "Warning: had one or more problems upgrading "
           << "V1LayerParameter (see above); continuing anyway.";
     } else {
-      LOG(INFO) << "Successfully upgraded file specified using deprecated "
-                << "V1LayerParameter";
+    //  LOG(INFO) << "Successfully upgraded file specified using deprecated "
+    //            << "V1LayerParameter";
     }
   }
   return success;
