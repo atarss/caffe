@@ -995,7 +995,7 @@ message V1LayerParameter {
 
   // added by Hukun
   optional DropoutAlexParameter dropoutalex_param = 43;
-  optional PReLUParameter prelu_param = 30;
+  optional PReLUParameter prelu_param = 44;
 
   optional DummyDataParameter dummy_data_param = 26;
   optional EltwiseParameter eltwise_param = 24;
